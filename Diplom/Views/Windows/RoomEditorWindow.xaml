@@ -1,0 +1,35 @@
+﻿<Window x:Class="TA.Desktop.Views.Windows.RoomEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TA.Desktop.Views.Windows"
+        mc:Ignorable="d"
+        Title="Добавление комнаты" Height="250" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="22" Text="Название" Margin="10" VerticalAlignment="Center" TextAlignment="Center"/>
+        <TextBox x:Name="edName" Grid.Row="0" Margin="5" Grid.Column="1" Height="24"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="22" Text="Цена" Margin="10" VerticalAlignment="Center" TextAlignment="Center"/>
+        <TextBox PreviewTextInput="edPrice_PreviewTextInput" x:Name="edPrice" Grid.Row="1" Margin="5" Grid.Column="1" Height="24"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="22" Text="Кол-во комнат" Margin="10" VerticalAlignment="Center" TextAlignment="Center"/>
+        <TextBox PreviewTextInput="edPrice_PreviewTextInput" x:Name="edCount" Grid.Row="2" Margin="5" Grid.Column="1" Height="24"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="7">
+            <Button Click="btnCancel_Click" Grid.Row="5" Grid.Column="0" x:Name="btnCancel" Content="Отмена"/>
+            <Button Click="btnAdd_Click" Grid.Row="5" Grid.Column="1" x:Name="btnAdd" Content="Сохранить"/>
+        </StackPanel>
+    </Grid>
+</Window>

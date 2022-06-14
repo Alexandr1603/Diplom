@@ -1,0 +1,170 @@
+﻿<Window x:Class="TA.Desktop.Views.Windows.TourWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TA.Desktop.Views.Windows"
+        mc:Ignorable="d"
+        Title="Тур" Height="450" Width="830" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1.2*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid Width="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="22" Text="Название" Margin="10" VerticalAlignment="Center" TextAlignment="Right"/>
+                <TextBox x:Name="edName" Grid.Row="0" Margin="5" Grid.Column="1" Height="24"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="22" Text="Скидка" Margin="10" VerticalAlignment="Center" TextAlignment="Right"/>
+                <TextBox x:Name="edDiscount" Grid.Row="1" Margin="5" Grid.Column="1" Height="24" SelectionChanged="edDiscount_SelectionChanged" IsEnabled="False"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="22" Text="Цена (руб.)" Margin="10" VerticalAlignment="Center" TextAlignment="Right"/>
+                <TextBox x:Name="edPrice" Grid.Row="2" Margin="5" Grid.Column="1" Height="24" IsEnabled="False" SelectionChanged="edPrice_SelectionChanged"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" FontSize="22" Text="Цена со скидкой (руб.)" Margin="10" VerticalAlignment="Center" TextAlignment="Right"/>
+                <TextBox x:Name="edPriceWithDiscount" Grid.Row="3" Margin="5" Grid.Column="1" Height="24" IsEnabled="False"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="0" FontSize="22" Text="Дата начала тура" Margin="10" VerticalAlignment="Center" TextAlignment="Right"/>
+                <DatePicker x:Name="edDateStart" Grid.Row="4" Margin="5" Grid.Column="1" Height="24" SelectedDateChanged="edDateStart_SelectedDateChanged"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="0" FontSize="22" Text="Дата окончания тура" Margin="10" VerticalAlignment="Center" TextAlignment="Right"/>
+                <DatePicker x:Name="edDateEnd" Grid.Row="5" Margin="5" Grid.Column="1" Height="24" IsEnabled="False"/>
+            </Grid>            
+        </StackPanel>
+
+        <TabControl Grid.Column="2">
+            <TabItem Header="Маршрут">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Menu Grid.Column="2" VerticalAlignment="Center">
+                        <MenuItem x:Name="btnAddRoute" Width="25" Click="btnAddRoute_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/Add.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="btnDeleteRoute" Width="25" Click="btnDeleteRoute_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/Delete.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </Menu>
+
+                    <ListBox Grid.Row="1" x:Name="routBox" ItemsSource="{Binding Routes}" Background="LightGray" SelectionMode="Single" MouseDoubleClick="roomBox_MouseDoubleClick">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="1" VerticalAlignment="Top"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" TextBlock.FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                    <StackPanel TextBlock.FontSize="16" TextBlock.TextAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Position}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding CityName}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Price}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding Vis}" />
+                                    <Image Source="/Images/down.png" Margin="2" Width="10" Height="10" Visibility="{Binding Vis}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Клиенты">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Menu Grid.Column="2" VerticalAlignment="Center">
+                        <MenuItem x:Name="btnAddClient" Width="25" Click="btnAddClient_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/Add.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="btnDeleteClient" Width="25" Click="btnDeleteClient_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/Delete.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </Menu>
+
+                    <ListBox Grid.Row="1" x:Name="clientBox" ItemsSource="{Binding Customers}" Background="LightGray" SelectionMode="Single" >
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="1" VerticalAlignment="Top"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid TextBlock.FontSize="16" TextBlock.TextAlignment="Center">
+                                    <TextBlock Text="{Binding Initials}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Транспорт" x:Name="tbTrans">
+                <ListBox Grid.Row="1" x:Name="transportBox" ItemsSource="{Binding Transports}" Background="LightGray" SelectionMode="Single" >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <StackPanel TextBlock.FontSize="16" TextBlock.TextAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Text=" " FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Transport}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel TextBlock.FontSize="16" TextBlock.TextAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Text=" Цена: " VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Price}" VerticalAlignment="Center"/>
+                                    <TextBlock Text=" - Растояние: " VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Distance}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="7">
+            <Button Click="btnCancel_Click" x:Name="btnCancel" Content="Отмена"/>
+            <Button Click="btnAdd_Click" x:Name="btnAdd" Content="Сохранить"/>
+        </StackPanel>
+    </Grid>
+</Window>

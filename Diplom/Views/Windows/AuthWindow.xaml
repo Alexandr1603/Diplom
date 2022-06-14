@@ -1,0 +1,25 @@
+﻿<Window x:Class="TA.Desktop.Views.Windows.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TA.Desktop.Views.Windows"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="225" Width="470" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Closing="Window_Closing">
+    <Grid>
+        <StackPanel Margin="0, 0, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label FontSize="22" Content="Логин" Margin="10"/>
+                <TextBox x:Name="edLogin" VerticalContentAlignment="Center" Width="200" Height="24"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label FontSize="22" Content="Пароль" Margin="10"/>
+                <PasswordBox x:Name="edPassword" VerticalContentAlignment="Center" Width="200" Height="24"/>
+            </StackPanel>
+            <StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Click="btnInput_Click" x:Name="btnInput" Content="Вход" Padding="50px 5px"/>
+            </StackPanel>
+        </StackPanel> 
+    </Grid>
+</Window>

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Windows\AttractionEditorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\AttractionsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\AuthWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\BaseWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\CitiesWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\CityEditorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\ClientEditorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\ClientsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\CountriesWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\CountryEditorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\HotelEditorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\HotelsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\RoomEditorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\RouteWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\SelectRoomWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\SettingsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\TourWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\WorkerEditorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\WorkersWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Windows\AttractionEditorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\AttractionsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\AuthWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\BaseWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\CitiesWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\CityEditorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\ClientEditorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\ClientsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\CountriesWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\CountryEditorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\HotelEditorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\HotelsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\RoomEditorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\RouteWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\SelectRoomWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\TourWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\WorkerEditorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\WorkersWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

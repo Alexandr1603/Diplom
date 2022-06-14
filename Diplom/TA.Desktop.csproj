@@ -1,0 +1,107 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\flight.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<None Remove="Certificates\Certificate.psd" />
+	<None Remove="Images\Add.png" />
+	<None Remove="Images\AddList.png" />
+	<None Remove="Images\Delete.png" />
+	<None Remove="Images\DeleteList.png" />
+	<None Remove="Images\down.png" />
+	<None Remove="Images\Edit.png" />
+	<None Remove="Images\EditList.png" />
+	<None Remove="Images\flight.png" />
+	<None Remove="Images\head.png" />
+	<None Remove="Images\Search.png" />
+	<None Remove="Images\Select.png" />
+	<COMReference Include="Microsoft.Office.Interop.Excel">
+	  <WrapperTool>tlbimp</WrapperTool>
+	  <VersionMinor>6</VersionMinor>
+	  <VersionMajor>1</VersionMajor>
+	  <Guid>00020813-0000-0000-c000-000000000046</Guid>
+	  <Lcid>0</Lcid>
+	  <Isolated>false</Isolated>
+	  <EmbedInteropTypes>true</EmbedInteropTypes>
+	</COMReference>
+	<COMReference Include="Microsoft.Office.Interop.Word">
+	  <WrapperTool>tlbimp</WrapperTool>
+	  <VersionMinor>7</VersionMinor>
+	  <VersionMajor>8</VersionMajor>
+	  <Guid>00020905-0000-0000-c000-000000000046</Guid>
+	  <Lcid>0</Lcid>
+	  <Isolated>false</Isolated>
+	  <EmbedInteropTypes>true</EmbedInteropTypes>
+	</COMReference>
+	<Content Include="Images\flight.ico" />
+	<ProjectReference Include="..\TA.Domain\TA.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="System.Device.Location.Portable" Version="1.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\TA.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Add.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\AddList.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Delete.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\DeleteList.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\down.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Edit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\EditList.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\head.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Select.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Pages\" />
+  </ItemGroup>
+
+</Project>

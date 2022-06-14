@@ -1,0 +1,53 @@
+﻿<Window x:Class="TA.Desktop.Views.Windows.ClientEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TA.Desktop.Views.Windows"
+        mc:Ignorable="d"
+        Title="Добавление пользователя" Height="400" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0"  FontSize="22" Text="Фамилия" Margin="10" VerticalAlignment="Center" TextAlignment="Center" />
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="5" x:Name="edSurname" Height="24"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="22" Text="Имя" Margin="10" VerticalAlignment="Center" TextAlignment="Center"/>
+        <TextBox x:Name="edName" Grid.Row="1" Margin="5" Grid.Column="1" Height="24"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="22" Text="Отчество" Margin="10" VerticalAlignment="Center" TextAlignment="Center"/>
+        <TextBox x:Name="edPatronomic" Grid.Row="2" Margin="5" Grid.Column="1" Height="24"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0"  FontSize="22" Text="Паспорт" Margin="10" VerticalAlignment="Center" TextAlignment="Center" />
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" x:Name="edPassport" Height="24" PreviewTextInput="edPassport_PreviewTextInput"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="22" Text="Телефон" Margin="10" VerticalAlignment="Center" TextAlignment="Center"/>
+        <TextBox x:Name="edPhone" PreviewTextInput="edPhone_PreviewTextInput" Grid.Row="4" Margin="5" Grid.Column="1" Height="24"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="0"  FontSize="22" Text="Почта" Margin="10" VerticalAlignment="Center" TextAlignment="Center" />
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="5" x:Name="edEmail" Height="24"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" FontSize="22" Text="Личная скидка" Margin="10" VerticalAlignment="Center" TextAlignment="Center"/>
+        <TextBox x:Name="edDiscoint" Grid.Row="6" Margin="5" Grid.Column="1" Height="24" PreviewTextInput="edPhone_PreviewTextInput"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="7">
+            <Button Click="btnCancel_Click" Grid.Row="7" Grid.Column="0" x:Name="btnCancel" Content="Отмена"/>
+            <Button Click="btnAdd_Click" Grid.Row="7" Grid.Column="1" x:Name="btnAdd" Content="Сохранить"/>
+        </StackPanel>
+        
+
+    </Grid>
+</Window>

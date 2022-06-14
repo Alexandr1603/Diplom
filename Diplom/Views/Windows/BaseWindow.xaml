@@ -1,0 +1,152 @@
+﻿<Window x:Class="TA.Desktop.Views.Windows.BaseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TA.Desktop.Views.Windows"
+        mc:Ignorable="d"
+        Title="Менеджер туров"
+        WindowState="Maximized"
+        ContentRendered="Window_ContentRendered"
+        Closed="Window_Closed"
+        Height="450" Width="1000">
+    <Window.Resources>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Управление">
+                <MenuItem x:Name="btnSelectWorker" Click="btnSelectWorker_Click" Header="Сменить пользователя" />
+                <MenuItem x:Name="btnExit" Click="btnExit_Click" Header="Выход" />
+            </MenuItem>
+            <MenuItem IsEnabled="False" x:Name="menuReferences" Header="Справочники" >
+                <MenuItem Header="Страны" x:Name="btnCountries" Click="btnCountries_Click"/>
+                <MenuItem Header="Города" x:Name="btnCities" Click="btnCities_Click"/>
+                <MenuItem Header="Отели" x:Name="btnHotels" Click="btnHotels_Click"/>
+                <MenuItem Header="Достопримечательности" x:Name="btnAttractions" Click="btnAttractions_Click"/>
+                <MenuItem Header="Клиенты" x:Name="btnCustomers" Click="btnCustomers_Click" />
+                <MenuItem Header="Пользователи" x:Name="btnWorkers" Click="btnWorkers_Click"/>
+            </MenuItem>
+            <MenuItem Header="Настройки" >
+                <MenuItem x:Name="btnSettings" Click="btnSettings_Click" Header="Настройки программы" />
+            </MenuItem>
+            <MenuItem Header="Инструменты" >
+                <MenuItem x:Name="btnExport" Click="btnExport_Click" Header="Экспорт туров PDF" />
+                <MenuItem x:Name="btnExportXLSX" Click="btnExportXLSX_Click" Header="Экспорт туров XLSX" />
+                <MenuItem x:Name="btnExportXML" Click="btnExportXML_Click" Header="Экспорт туров XML" />
+            </MenuItem>
+            <MenuItem Header="Справка" >
+                <MenuItem x:Name="btnSpr" Click="btnSpr_Click" Header="О программе" />
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" MaxWidth="400" MinWidth="200"/>
+                <ColumnDefinition Width="3"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Группировать по"/>
+                    <ComboBox Grid.Column="1" Margin="3, 2, 0, 2" VerticalContentAlignment="Center" x:Name="cbGroup" SelectionChanged="cbGroup_SelectionChanged">
+                        <ComboBoxItem Content="Городам"/>
+                        <ComboBoxItem Content="Работникам"/>
+                    </ComboBox>
+                </Grid>
+                <TextBlock x:Name="NameGroup" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Города тура"/>
+                <TreeView Grid.Row="2" FontSize="16" x:Name="treeView1" SelectedItemChanged="treeView1_SelectedItemChanged">
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
+                            <TextBlock Text="{Binding Header}" />
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </Grid>
+            
+            <Grid Margin="5,0,0,0" Grid.Column="2"  Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+                    <Menu>
+                        <MenuItem x:Name="btnAddTour" Width="25" Click="btnAddTour_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/Add.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="btnEditTour" Width="25" Click="btnEditTour_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/Edit.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="btnDeleteTour" Width="25" Click="btnDeleteTour_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/Delete.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </Menu>
+                    <TextBlock Margin="60, 3, 0, 3" Text="Поиск" />
+                    <TextBox x:Name="edSearch" Width="150" Margin="3, 2, 0, 2"/>
+                    <MenuItem x:Name="btnSearch" Width="25" Click="MenuItem_Click" IsCheckable="True">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/Search.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <ComboBox Width="180" Margin="3, 2, 0, 2" VerticalContentAlignment="Center" x:Name="cbSort" SelectionChanged="cbSort_SelectionChanged">
+                        <ComboBoxItem Content="По имени"/>
+                        <ComboBoxItem Content="По дате начала тура"/>
+                        <ComboBoxItem Content="По дате окончания тура"/>
+                    </ComboBox>
+                    <MenuItem Margin="10,0,0,0" Header="Экспорт тура" Click="MenuItem_Click_1"/>
+                </StackPanel>
+                <ListBox x:Name="tourBox" Grid.Row="1" Background="LightGray" SelectionMode="Single" MouseDoubleClick="tourBox_MouseDoubleClick" Grid.ColumnSpan="2">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center"  Orientation="Vertical" VerticalAlignment="Center" TextBlock.FontSize="16" TextBlock.TextAlignment="Center">
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Id}" FontWeight="Bold" VerticalAlignment="Center" Visibility="Collapsed"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text=" Цена: " VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Price}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Text=" руб. Дата начала тура: " VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding DateStart, StringFormat={}{0:dd.MM.yy}}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Text=" Дата окончания тура: " VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding DateEnd, StringFormat={}{0:dd.MM.yy}}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Text=" Работник: " VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Worker}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <GridSplitter Grid.Column="1"
+                          HorizontalAlignment="Left"
+                          Width="5"/>
+        </Grid>
+    </Grid>
+</Window>
