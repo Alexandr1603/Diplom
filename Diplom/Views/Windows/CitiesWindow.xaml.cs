@@ -18,6 +18,11 @@ using TA.Domain.Countries;
 using TA.Services.Countries;
 using System.Collections.ObjectModel;
 using TA.Domain.Results;
+using TA.Services.Attractions;
+using TA.Services.Hotels;
+using TA.Services;
+using TA.Services.Routes;
+using TA.Domain.Workers;
 
 namespace TA.Desktop.Views.Windows
 {
@@ -28,6 +33,10 @@ namespace TA.Desktop.Views.Windows
     public partial class CitiesWindow : Window
     {
         private readonly CitiesService _citiesService = new();
+        private readonly AttractionsService _attractionsService = new();
+        private readonly HotelsService _hotelsService = new();
+        private readonly TourService _tourService = new();
+        private readonly RoutesService _routesService = new();
         public City[] Cities { get; set; }
 
         private readonly CountriesService _countriesService = new();
@@ -38,6 +47,10 @@ namespace TA.Desktop.Views.Windows
         {
             InitializeComponent();
             FSelectedMod = selectedMod;
+            if (selectedMod && (App.CurrentWorker.Role == WorkerRole.Manager))
+            {
+                menu.Visibility = Visibility.Collapsed;
+            }
             var Countries = _countriesService.GetAllCountries();
             ObservableCollection<TreeViewItem> nodes = new ObservableCollection<TreeViewItem>();
             foreach (Country country in Countries)
@@ -81,7 +94,28 @@ namespace TA.Desktop.Views.Windows
             MessageBoxResult messageResult = App.ShowMessage("Вы уверены, что хотите удалить город?", button: MessageBoxButton.YesNo);
             if (messageResult == MessageBoxResult.No) return;
 
-            _citiesService.DeleteCity(entry.Id);
+            bool RouteEmpty = true;
+            foreach (var item in _tourService.GetAllTours())
+            {
+                var Routs = _routesService.GetRoutesTour(item.Id);
+                Routs = Routs.OrderBy(x => x.Position).ToArray();
+                foreach (var route in Routs)
+                {
+                    if (route.Id == entry.Id)
+                    {
+                        RouteEmpty = false;
+                    }
+                }
+            }
+
+            if ((_attractionsService.GetCityAttractions(entry.Id).Count() == 0) && (_hotelsService.GetCityHotels(entry.Id).Count() == 0) && RouteEmpty)
+            {
+                _citiesService.DeleteCity(entry.Id);
+            }
+            else
+            {
+                App.ShowMessage("Город используется");
+            }
         }
 
         private void btnEditCity_Click(object sender, RoutedEventArgs e)

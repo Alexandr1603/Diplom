@@ -68,7 +68,7 @@
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Группировать по"/>
                     <ComboBox Grid.Column="1" Margin="3, 2, 0, 2" VerticalContentAlignment="Center" x:Name="cbGroup" SelectionChanged="cbGroup_SelectionChanged">
                         <ComboBoxItem Content="Городам"/>
-                        <ComboBoxItem Content="Работникам"/>
+                        <ComboBoxItem x:Name="cbiWorker" Content="Работникам"/>
                     </ComboBox>
                 </Grid>
                 <TextBlock x:Name="NameGroup" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Города тура"/>

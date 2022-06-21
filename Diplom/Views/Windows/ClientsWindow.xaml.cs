@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TA.Domain.Customers;
+using TA.Domain.Workers;
 using TA.Services.Customers;
 
 namespace TA.Desktop.Views.Windows
@@ -32,6 +33,11 @@ namespace TA.Desktop.Views.Windows
             LoadCustomers();
             this.DataContext = this;
             FSelectedMod = selectedMod;
+            if (FSelectedMod && (App.CurrentWorker.Role == WorkerRole.Manager))
+            {
+                btnDeleteClient.Visibility = Visibility.Collapsed;
+                btnEditClient.Visibility = Visibility.Collapsed;
+            }
         }
 
         private (bool, Customer) SelectCustomer()

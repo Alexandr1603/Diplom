@@ -200,6 +200,7 @@ namespace TA.Desktop.Views.Windows
             {
                 cbGroup.SelectedIndex = 0;
                 cbSort.SelectedIndex = 0;
+                cbiWorker.IsEnabled = App.CurrentWorker.Role != WorkerRole.Manager;
             }
         }
 

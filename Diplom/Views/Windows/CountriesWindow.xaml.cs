@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TA.Domain.Countries;
+using TA.Services.Cities;
 using TA.Services.Countries;
 
 namespace TA.Desktop.Views.Windows
@@ -23,6 +24,7 @@ namespace TA.Desktop.Views.Windows
     public partial class CountriesWindow : Window
     {
         private readonly CountriesService _countriesService = new();
+        private readonly CitiesService _citiesService = new();
         public Country[] Countries { get; set; }
         public CountriesWindow()
         {
@@ -80,7 +82,14 @@ namespace TA.Desktop.Views.Windows
             MessageBoxResult messageResult = App.ShowMessage("Вы уверены, что хотите удалить страну?", button: MessageBoxButton.YesNo);
             if (messageResult == MessageBoxResult.No) return;
 
-            _countriesService.DeleteCountry(entry.Id);
+            if (_citiesService.GetCountryCities(entry.Id).Count() == 0)
+            {
+                _countriesService.DeleteCountry(entry.Id);
+            }
+            else
+            {
+                App.ShowMessage("У страны есть города");
+            }
         }
     }
 }

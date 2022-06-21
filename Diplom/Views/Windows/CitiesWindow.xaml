@@ -24,7 +24,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Menu Grid.Column="2" VerticalAlignment="Center">
+        <Menu Grid.Column="2" VerticalAlignment="Center" x:Name="menu">
             <MenuItem x:Name="btnAddCity" Width="25" Click="btnAddCity_Click">
                 <MenuItem.Icon>
                     <Image Source="/Images/Add.png"/>

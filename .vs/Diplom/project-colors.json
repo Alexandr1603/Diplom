@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "2181379f-70fb-4759-86a3-1aff8a8ea032": {
+      "ProjectGuid": "2181379f-70fb-4759-86a3-1aff8a8ea032",
+      "DisplayName": "TA.Desktop",
+      "ColorIndex": 0
+    },
+    "af1d5c96-40c1-4656-98a8-6f654761d857": {
+      "ProjectGuid": "af1d5c96-40c1-4656-98a8-6f654761d857",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 1
+    },
+    "adeac583-363b-4f2f-9122-88025bb798c1": {
+      "ProjectGuid": "adeac583-363b-4f2f-9122-88025bb798c1",
+      "DisplayName": "fff",
+      "ColorIndex": 2
+    },
+    "c3579fb5-f22e-478c-a6a9-47bff8f143cd": {
+      "ProjectGuid": "c3579fb5-f22e-478c-a6a9-47bff8f143cd",
+      "DisplayName": "TA.Services",
+      "ColorIndex": 3
+    },
+    "4fda3688-7670-4021-9ab7-008e54ff846e": {
+      "ProjectGuid": "4fda3688-7670-4021-9ab7-008e54ff846e",
+      "DisplayName": "TA.Domain",
+      "ColorIndex": 4
+    },
+    "4e919d73-bcd9-48e0-bef4-e1b5e62a12de": {
+      "ProjectGuid": "4e919d73-bcd9-48e0-bef4-e1b5e62a12de",
+      "DisplayName": "TA.EntitiesCore",
+      "ColorIndex": 5
+    }
+  },
+  "NextColorIndex": 6
+}

@@ -17,6 +17,7 @@ using TA.Domain.Attractions;
 using TA.Domain.Cities;
 using TA.Domain.Countries;
 using TA.Domain.Results;
+using TA.Domain.Workers;
 using TA.Services.Attractions;
 using TA.Services.Cities;
 using TA.Services.Countries;
@@ -39,6 +40,10 @@ namespace TA.Desktop.Views.Windows
         {
             InitializeComponent();
             FSelectedMod = SelectedMod;
+            if (FSelectedMod && (App.CurrentWorker.Role == WorkerRole.Manager))
+            {
+                menu.Visibility = Visibility.Collapsed;
+            }
             var Countries = _countriesService.GetAllCountries();
             ObservableCollection<TreeViewItem> nodes = new ObservableCollection<TreeViewItem>();
             foreach (Country country in Countries)
