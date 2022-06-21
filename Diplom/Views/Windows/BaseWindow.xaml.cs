@@ -21,9 +21,11 @@ using TA.Domain.RouteTransport;
 using TA.Domain.Tours;
 using TA.Domain.Workers;
 using TA.Services;
+using TA.Services.Attractions;
 using TA.Services.Cities;
 using TA.Services.Countries;
 using TA.Services.Customers;
+using TA.Services.Hotels;
 using TA.Services.Routes;
 using TA.Services.TourClientsService;
 using TA.Services.Workers;
@@ -59,6 +61,9 @@ namespace TA.Desktop.Views.Windows
         private readonly CustomersService _customersService = new();
         private readonly CountriesService _countriesService = new();
         private readonly RoutesService _routesService = new();
+        private readonly HotelsService _hotelsService = new();
+        private readonly AttractionsService _attractionsService = new();
+
         private XmlDocument doc = new XmlDocument();
         public Tour[] Tours { get; set; }
         public BaseWindow()
@@ -288,7 +293,26 @@ namespace TA.Desktop.Views.Windows
             MessageBoxResult messageResult = App.ShowMessage("Вы уверены, что хотите удалить тур?", button: MessageBoxButton.YesNo);
             if (messageResult == MessageBoxResult.No) return;
 
+            var Customers = _tourClientsService.GetTourClients(entry.Id);
+            var Routs = _routesService.GetRoutesTour(entry.Id);
+            foreach (var item in Customers)
+            {
+                _tourClientsService.DeleteTourClient(item.Id);
+            }
+            foreach (var item in Routs)
+            {
+                foreach(var item1 in _routesService.GetAttractionRoute(item.Id))
+                {
+                    _routesService.DeleteAttractionRoute(item1.Id);
+                }
+                foreach (var item1 in _routesService.GetHotelRoute(item.Id))
+                {
+                    _routesService.DeleteHotelRoute(item1.Id);
+                }
+                _routesService.DeleteRoute(item.Id);
+            }
             _tourService.DeleteTour(entry.Id);
+            LoadTours();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -354,7 +378,7 @@ namespace TA.Desktop.Views.Windows
                 pdfTable.AddCell(new PdfPCell(new Phrase("Цена", font5)));
                 pdfTable.AddCell(new PdfPCell(new Phrase("Скидка %", font5)));
                 pdfTable.AddCell(new PdfPCell(new Phrase("Дата начала", font5)));
-                pdfTable.AddCell(new PdfPCell(new Phrase("Дата оцончания", font5)));
+                pdfTable.AddCell(new PdfPCell(new Phrase("Дата окончания", font5)));
                 pdfTable.AddCell(new PdfPCell(new Phrase("Клиент", font5)));
 
 
@@ -408,7 +432,7 @@ namespace TA.Desktop.Views.Windows
                         };
                         node.IsExpanded = true;
                         nodes.Add(node);
-                        if (nodes.Count == 1) { ((TreeViewItem)nodes[0].Items[0]).IsSelected = true; }
+                        if (nodes.Count == 1 && node.Items.Count > 0) { ((TreeViewItem)nodes[0].Items[0]).IsSelected = true; }
                     }
                     treeView1.ItemsSource = nodes;
                     this.DataContext = this;
@@ -424,7 +448,7 @@ namespace TA.Desktop.Views.Windows
                         };
                         node.IsExpanded = true;
                         nodes.Add(node);
-                        if (nodes.Count == 1) { ((TreeViewItem)nodes[0]).IsSelected = true; }
+                        if (nodes.Count == 1 && node.Items.Count > 0) { ((TreeViewItem)nodes[0]).IsSelected = true; }
                     }
                     treeView1.ItemsSource = nodes;
                     this.DataContext = this;
@@ -457,7 +481,7 @@ namespace TA.Desktop.Views.Windows
                 sheet.Cells[2, 4] = "Скидка";
                 sheet.Cells[2, 5] = "Дата начала";
                 sheet.Cells[2, 6] = "Дата окончания";
-                sheet.Cells[2, 7] = "Дата окончания";
+                sheet.Cells[2, 7] = "Клиент";
 
                 int i = 3;
                 foreach (var tour in Tours)
@@ -521,11 +545,6 @@ namespace TA.Desktop.Views.Windows
             }
             tran.Add(new TransportExp(_citiesService.GetCity(routeStart.Id_city).Name + " - " + _citiesService.GetCity(routeEnd.Id_city).Name, "(" + tr.GetDisplayName() + ")",
                 Convert.ToInt32(Price), Convert.ToInt32(dist) + "км. "));
-        }
-
-        private void btnExportXML_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)

@@ -69,7 +69,7 @@ namespace TA.Desktop.Views.Windows
                 nodes.Add(node);
                 if (!SelectedMod)
                 {
-                    if (nodes.Count == 1) { ((TreeViewItem)nodes[0].Items[0]).IsSelected = true; }
+                    if (nodes.Count == 1 && node.Items.Count > 0) { ((TreeViewItem)nodes[0].Items[0]).IsSelected = true; }
                 }
             }
             treeView1.ItemsSource = nodes;
@@ -97,6 +97,7 @@ namespace TA.Desktop.Views.Windows
             if (messageResult == MessageBoxResult.No) return;
 
             _attractionsService.DeleteAttraction(entry.Id);
+            treeView1_SelectedItemChanged(sender, null);
         }
 
         private void btnEditAttraction_Click(object sender, RoutedEventArgs e)

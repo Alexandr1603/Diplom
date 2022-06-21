@@ -14,7 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TA.Domain.Customers;
 using TA.Domain.Workers;
+using TA.Services;
 using TA.Services.Customers;
+using TA.Services.TourClientsService;
 
 namespace TA.Desktop.Views.Windows
 {
@@ -24,6 +26,8 @@ namespace TA.Desktop.Views.Windows
     public partial class ClientsWindow : Window
     {
         private readonly CustomersService _customersService = new();
+        private readonly TourService _tourService = new();
+        private readonly TourClientsService _tourClientsService = new();
         public Customer[] Customers { get; set; }
         private bool FSelectedMod;
         public Guid? clientId;
@@ -87,7 +91,28 @@ namespace TA.Desktop.Views.Windows
             MessageBoxResult messageResult = App.ShowMessage("Вы уверены, что хотите удалить клиента?", button: MessageBoxButton.YesNo);
             if (messageResult == MessageBoxResult.No) return;
 
-            _customersService.DeleteCustomer(entry.Id);
+            bool RouteEmpty = true;
+            foreach (var item in _tourService.GetAllTours())
+            {
+                var Customers = _tourClientsService.GetTourClients(item.Id);
+                foreach (var item1 in Customers)
+                {
+                    if (item1.Id_client == entry.Id)
+                    {
+                        RouteEmpty = false;
+                    }
+                }
+            }
+            if (RouteEmpty)
+            {
+                _customersService.DeleteCustomer(entry.Id);
+                LoadCustomers();
+            }
+            else
+            {
+                App.ShowMessage("Клиент используется");
+            }
+           
         }
 
         private void btnEditClient_Click(object sender, RoutedEventArgs e)

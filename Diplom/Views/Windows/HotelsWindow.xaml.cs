@@ -17,9 +17,12 @@ using TA.Domain.Cities;
 using TA.Domain.Countries;
 using TA.Domain.Hotels;
 using TA.Domain.Results;
+using TA.Services;
 using TA.Services.Cities;
 using TA.Services.Countries;
+using TA.Services.HotelRooms;
 using TA.Services.Hotels;
+using TA.Services.Routes;
 
 namespace TA.Desktop.Views.Windows
 {
@@ -30,7 +33,10 @@ namespace TA.Desktop.Views.Windows
     {
         private readonly CitiesService _citiesService = new();
         private readonly CountriesService _countriesService = new();
+        private readonly HotelRoomsService _hotelRoomsService = new();
         private readonly HotelsService _hotelsService = new();
+        private readonly TourService _tourService = new();
+        private readonly RoutesService _routesService = new();
         public Hotel[] Hotels { get; set; }
         private Guid? cityId;
         public HotelsWindow()
@@ -54,7 +60,7 @@ namespace TA.Desktop.Views.Windows
                 };
                 node.IsExpanded = true;
                 nodes.Add(node);
-                if (nodes.Count == 1) { ((TreeViewItem)nodes[0].Items[0]).IsSelected = true; }
+                if (nodes.Count == 1 && node.Items.Count > 0) { ((TreeViewItem)nodes[0].Items[0]).IsSelected = true; }
             }
             treeView1.ItemsSource = nodes;
             this.DataContext = this;
@@ -115,7 +121,40 @@ namespace TA.Desktop.Views.Windows
             MessageBoxResult messageResult = App.ShowMessage("Вы уверены, что хотите удалить отель?", button: MessageBoxButton.YesNo);
             if (messageResult == MessageBoxResult.No) return;
 
-            _hotelsService.DeleteHotel(entry.Id);
+            var rooms = _hotelRoomsService.GetRoomsHotel(entry.Id);
+            bool RouteEmpty = true;
+            foreach (var item in _tourService.GetAllTours())
+            {
+                var Routs = _routesService.GetRoutesTour(item.Id);
+                Routs = Routs.OrderBy(x => x.Position).ToArray();
+                foreach (var route in Routs)
+                {
+                    foreach (var item1 in _routesService.GetHotelRoute(route.Id))
+                    {
+                        foreach (var room in rooms)
+                        {
+                            if (room.Id == item1.Id_room)
+                            {
+                                RouteEmpty = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (RouteEmpty)
+            {
+                foreach (var room in rooms)
+                {
+                    _hotelRoomsService.DeleteHotelRoom(room.Id);
+                }
+                _hotelsService.DeleteHotel(entry.Id);
+                treeView1_SelectedItemChanged(sender, null);
+            }
+            else
+            {
+                App.ShowMessage("Отель используется");
+            }
         }
 
         private void btnEditCity_Click(object sender, RoutedEventArgs e)

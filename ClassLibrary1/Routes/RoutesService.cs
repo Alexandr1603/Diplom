@@ -32,6 +32,18 @@ namespace TA.Services.Routes
         {
             return _routeHotelsRepository.GetHotelRoute(countryId);
         }
+        public void DeleteAttractionRoute(Guid roomId)
+        {
+            _routeAttractionsRepository.DeleteAttractionRoute(roomId);
+        }
+        public void DeleteHotelRoute(Guid roomId)
+        {
+            _routeHotelsRepository.DeleteHotelRoute(roomId);
+        }
+        public void DeleteRoute(Guid roomId)
+        {
+            _routesRepository.DeleteRoute(roomId);
+        }
         public Result SaveRoutesEntry(List<RouteBlank> blanks, Guid tourId)
         {
             foreach (var item in blanks)

@@ -85,6 +85,7 @@ namespace TA.Desktop.Views.Windows
             if (_citiesService.GetCountryCities(entry.Id).Count() == 0)
             {
                 _countriesService.DeleteCountry(entry.Id);
+                LoadCountries();
             }
             else
             {

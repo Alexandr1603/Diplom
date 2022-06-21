@@ -111,6 +111,7 @@ namespace TA.Desktop.Views.Windows
             if ((_attractionsService.GetCityAttractions(entry.Id).Count() == 0) && (_hotelsService.GetCityHotels(entry.Id).Count() == 0) && RouteEmpty)
             {
                 _citiesService.DeleteCity(entry.Id);
+                treeView1_SelectedItemChanged(sender, null);
             }
             else
             {

@@ -15,8 +15,10 @@ using System.Windows.Shapes;
 using TA.Domain.Hotels;
 using TA.Domain.Results;
 using TA.Domain.Rooms;
+using TA.Services;
 using TA.Services.HotelRooms;
 using TA.Services.Hotels;
+using TA.Services.Routes;
 
 namespace TA.Desktop.Views.Windows
 {
@@ -28,6 +30,9 @@ namespace TA.Desktop.Views.Windows
         private readonly HotelsService _hotelsService = new();
         private readonly HotelRoomsService _hotelRoomsService = new();
         public List<HotelRoomBlank> HotelRooms = new List<HotelRoomBlank>();
+        public List<HotelRoomBlank> DeleteHotelRooms = new List<HotelRoomBlank>();
+        private readonly TourService _tourService = new();
+        private readonly RoutesService _routesService = new();
         public HotelBlank Hotel { get; set; }
 
         public HotelEditorWindow(Guid? cityId, Hotel? hotel = null)
@@ -75,12 +80,19 @@ namespace TA.Desktop.Views.Windows
             }
             foreach (var item in HotelRooms)
             {
-                item.Id_hotel = Hotel.Id;   
+                item.Id_hotel = Hotel.Id;
                 result = _hotelRoomsService.SaveHotelRoomEntry(item);
                 if (!result.IsSuccess)
                 {
                     App.ShowMessage(result.Error);
                     return;
+                }
+            }
+            foreach (var item in DeleteHotelRooms)
+            {
+                if (item.Id != null)
+                {
+                    _hotelRoomsService.DeleteHotelRoom(item.Id.Value);
                 }
             }
 
@@ -135,9 +147,34 @@ namespace TA.Desktop.Views.Windows
             MessageBoxResult messageResult = App.ShowMessage("Вы уверены, что хотите удалить комнату?", button: MessageBoxButton.YesNo);
             if (messageResult == MessageBoxResult.No) return;
 
-            HotelRooms.Remove(entry);
-            roomBox.ItemsSource = null;
-            roomBox.ItemsSource = HotelRooms;
+            bool RouteEmpty = true;
+            foreach (var item in _tourService.GetAllTours())
+            {
+                var Routs = _routesService.GetRoutesTour(item.Id);
+                Routs = Routs.OrderBy(x => x.Position).ToArray();
+                foreach (var route in Routs)
+                {
+                    foreach (var item1 in _routesService.GetHotelRoute(route.Id))
+                    {
+                        if (entry.Id == item1.Id_room)
+                        {
+                            RouteEmpty = false;
+                        }
+                    }
+                }
+            }
+
+            if (RouteEmpty)
+            {
+                HotelRooms.Remove(entry);
+                DeleteHotelRooms.Add(entry);
+                roomBox.ItemsSource = null;
+                roomBox.ItemsSource = HotelRooms;
+            }
+            else
+            {
+                App.ShowMessage("Номер используется");
+            }
         }
 
         private void edStars_PreviewTextInput(object sender, TextCompositionEventArgs e)

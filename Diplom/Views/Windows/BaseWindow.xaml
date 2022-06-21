@@ -42,7 +42,6 @@
             <MenuItem Header="Инструменты" >
                 <MenuItem x:Name="btnExport" Click="btnExport_Click" Header="Экспорт туров PDF" />
                 <MenuItem x:Name="btnExportXLSX" Click="btnExportXLSX_Click" Header="Экспорт туров XLSX" />
-                <MenuItem x:Name="btnExportXML" Click="btnExportXML_Click" Header="Экспорт туров XML" />
             </MenuItem>
             <MenuItem Header="Справка" >
                 <MenuItem x:Name="btnSpr" Click="btnSpr_Click" Header="О программе" />

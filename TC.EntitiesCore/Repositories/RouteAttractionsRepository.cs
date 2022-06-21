@@ -19,6 +19,18 @@ namespace TA.EntitiesCore.Repositories
                 return context.RoteAttractions.Where(c => c.Id_route == routeId).ToRouteAttractions();
             });
         }
+        public void DeleteAttractionRoute(Guid attractionRouteId)
+        {
+            UseContext(context =>
+            {
+                RouteAttractionDb db = context.RoteAttractions.FirstOrDefault(ce => ce.Id == attractionRouteId);
+                if (db is null) return;
+
+                context.RoteAttractions.Remove(db);
+                context.Entry(db).State = EntityState.Deleted;
+                context.SaveChanges();
+            });
+        }
         public void SaveRouteAttractionEntry(RouteAttractionBlank entryBlank)
         {
             UseContext(context =>
